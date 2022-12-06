@@ -1,13 +1,13 @@
 "use strict";
-exports.__esModule = true;
-var fs_1 = require("fs");
-var input = (0, fs_1.readFileSync)("input", "utf8");
-var i = 0;
-var max = 0;
-var elfMax = 0;
-input.split("\n\n").forEach(function (group) {
-    var sum = 0;
-    group.split("\n").forEach(function (line) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
+const input = (0, fs_1.readFileSync)("input", "utf8");
+let i = 0;
+let max = 0;
+let elfMax = 0;
+input.split("\n\n").forEach((group) => {
+    let sum = 0;
+    group.split("\n").forEach((line) => {
         sum += parseInt(line);
     });
     if (!sum)

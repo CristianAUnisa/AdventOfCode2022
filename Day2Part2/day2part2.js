@@ -1,7 +1,7 @@
 "use strict";
-exports.__esModule = true;
-var fs_1 = require("fs");
-var mapToVal = function (letter) {
+Object.defineProperty(exports, "__esModule", { value: true });
+const fs_1 = require("fs");
+const mapToVal = (letter) => {
     if (letter == "A" || letter == "X")
         return 0;
     else if (letter == "B" || letter == "Y")
@@ -9,19 +9,18 @@ var mapToVal = function (letter) {
     else
         return 2;
 };
-var input = (0, fs_1.readFileSync)("input", "utf-8");
-var result = input
+const input = (0, fs_1.readFileSync)("input", "utf-8");
+const result = input
     .split("\n")
-    .map(function (line) {
+    .map((line) => {
     return {
         elf: line.charAt(0),
-        player: line.charAt(2)
+        player: line.charAt(2),
     };
 })
-    .reduce(function (acc, _a) {
-    var elf = _a.elf, player = _a.player;
-    var elfPoint = mapToVal(elf);
-    var playerPoint;
+    .reduce((acc, { elf, player }) => {
+    let elfPoint = mapToVal(elf);
+    let playerPoint;
     if (player == "X") {
         playerPoint = (elfPoint + 2) % 3;
     }
@@ -42,7 +41,7 @@ var result = input
     }
     return {
         elfPoints: acc.elfPoints + elfPoint + 1,
-        playerPoints: acc.playerPoints + playerPoint + 1
+        playerPoints: acc.playerPoints + playerPoint + 1,
     };
 }, { elfPoints: 0, playerPoints: 0 });
 console.log(result);
