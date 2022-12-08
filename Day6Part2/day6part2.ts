@@ -14,8 +14,8 @@ rs.on("readable", () => {
     const index = helper.indexOf(char);
     if (index != -1) {
       helper.splice(0, index + 1);
-    } else if (helper.length == 4) helper.shift();
-    if (helper.length == 3 && !helper.includes(char)) break;
+    } else if (helper.length == 14) helper.shift();
+    if (helper.length == 13 && !helper.includes(char)) break;
     helper.push(char);
     i++;
     char = rs.read(1);
