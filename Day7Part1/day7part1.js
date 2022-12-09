@@ -1,4 +1,5 @@
 "use strict";
+//TODO: I'd like to have only one between children or parent, dunno if that's possible
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = require("fs");
 const readline_1 = require("readline");
@@ -18,8 +19,6 @@ const findTotalSize100000 = (res) => {
     return result;
 };
 const commands = new Array();
-const directories = new Array();
-const files = new Array();
 let root = { name: "/", children: [] };
 let currentDir = root;
 let first = true;
