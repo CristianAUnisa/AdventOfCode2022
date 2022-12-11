@@ -8,6 +8,8 @@ const rs = createReadStream("input", { encoding: "utf-8" });
 const lines = createInterface({ input: rs });
 
 class Monkey {
+  static productOfDividers = 1;
+
   items: number[] = [];
   operator!: string;
   operand!: string | number;
@@ -36,28 +38,28 @@ class Monkey {
     const old = this.items.shift();
     if (!old) return 0;
     let secondNumber;
-    if(typeof this.operand === "string" && this.operand === "old")
-        secondNumber = old;
+    if (typeof this.operand === "string" && this.operand === "old")
+      secondNumber = old;
     else secondNumber = +this.operand as number;
     let newWorry: number;
     switch (this.operator) {
       case "+":
-        newWorry = old + secondNumber;
+        newWorry = (old + secondNumber) % Monkey.productOfDividers;
         break;
       case "*":
-        newWorry = old * secondNumber;
+        newWorry = (old * secondNumber) % Monkey.productOfDividers;
         break;
       case "/":
-        newWorry = old / secondNumber;
+        newWorry = (old / secondNumber) % Monkey.productOfDividers;
         break;
       case "-":
-        newWorry = old - secondNumber;
+        newWorry = (old - secondNumber) % Monkey.productOfDividers;
         break;
       case "%":
-        newWorry = old % secondNumber;
+        newWorry = (old % secondNumber) % Monkey.productOfDividers;
         break;
     }
-    return Math.floor(newWorry! / 3);
+    return newWorry!;
   }
 
   private throwToMonkey(worryLevel: number): void {
@@ -102,6 +104,7 @@ lines.on("line", (line) => {
 });
 
 lines.on("close", () => {
+  Monkey.productOfDividers = monkeyList.reduce((acc, monkey) => acc * monkey.divisibleBy, 1);
   monkeyList.forEach((monkey, index) => {
     monkey.whereToThrow = [
       monkeyList[helperArray[index][0]!],
@@ -109,8 +112,12 @@ lines.on("close", () => {
     ];
   });
 
-  for (let i = 0; i < 20; i++) {
-    monkeyList.forEach((monkey) => monkey.inspect());
+  for (let i = 0; i < 10000; i++) {
+    monkeyList.forEach((monkey) => {
+      monkey.inspect();
+      // console.log(monkey.counter);
+    });
+    // console.log("_");
   }
   monkeyList.sort((a, b) => b.counter - a.counter);
   console.log(monkeyList[0].counter * monkeyList[1].counter);
